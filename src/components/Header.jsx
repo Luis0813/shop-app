@@ -1,16 +1,11 @@
-import { Body } from "./Body";
-import { useState } from "react"
-
-export const Header = () => {
-  const [estado, setestado] = useState("all")
-  const [searchValue, setsearchValue] = useState('')
+export const Header = ({setestado}) => {
+ 
 
   return (
     <>
     <div>
         <div className='nota'>
             <p>NOTE: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sequi non rem the coffer asdmafmvm;lma;sf</p>
-            <input type="search" name="search" id="search" onChange={()=>setsearchValue(search.value)}className="input"/>
         </div>
         <div className='contenedorHeader'>
             <img src="../../public/streetlevel.jpg" alt="StrerLevel" className='logo'/>
@@ -30,7 +25,7 @@ export const Header = () => {
             </div>
         </div>
     </div>
-     <Body estado={estado} searchValue={searchValue}/> 
+     
     </>
   )
 }
