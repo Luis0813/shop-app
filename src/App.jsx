@@ -1,20 +1,36 @@
+import { useEffect, useState } from 'react'
+import { Footer } from './components/layout/Footer'
+import { Header } from "./components/layout/Header";
+import { Body } from './components/layout/Body'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Carrito } from "./pages/Carrito";
+import { Perfil } from "./pages/Perfil";
+import { SingIn } from "./pages/SingIn";
+import { CardSelect } from "./pages/Single";
+import ApiService from './libs/ApiService';
 import './styles/App.css'
-import { Footer } from './components/Footer'
-import { Header } from './components/Header'
-import { useState } from 'react'
-import { Body } from './components/Body'
+
 function App() {
-  const [estado, setestado] = useState("all")
-  const [searchValue, setsearchValue] = useState('')
+  const [searchValue, setsearchValue] = useState('')    
+
   return (
-    <>
-      <div className='content'>
-        <input type="search" name="search" id="search" onChange={()=>setsearchValue(search.value)}className="input"/>
-        <Header estado={estado} setestado={setestado} />
-      </div>
-      <Body estado={estado} searchValue={searchValue}/> 
-      <Footer/>
-    </>
+    <BrowserRouter>
+      <Header setsearchValue={setsearchValue} />
+      <Routes>
+        <Route path="/" element={
+          <Home searchValue={searchValue} />}
+        />
+        <Route path="/product/:id" element={
+          <CardSelect />}
+        />
+        <Route path="/singIn" element={<SingIn />} />
+        <Route path="/carrito" element={<Carrito />} />
+        <Route path="/perfil" element={<Perfil />} />
+      </Routes>
+      <Body searchValue={searchValue} />
+      <Footer />
+    </BrowserRouter>
   )
 }
 
