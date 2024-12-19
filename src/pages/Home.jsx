@@ -16,7 +16,6 @@ export const Home = () => {
     }
   }
 
-  
   return (
     <>
       <div key={Date.now()} className='contentCard'>

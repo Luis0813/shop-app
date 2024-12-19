@@ -12,6 +12,8 @@ export const CardSelect = () => {
     try {
       const response = await ApiService.get(`/product/${id}`)
       setProduct(response.data)
+      console.log(response.data);
+
     } catch (error) {
       console.error(error);
     }
@@ -30,17 +32,17 @@ export const CardSelect = () => {
   }
 
   return (
-    <div className="contentInfo">
-      <img src={productoImage()} alt="" className="imageInfo" />
-      <div className="infoProduct">
-        <h2 className="titleInfo">{product.name}</h2>
-        <p>{product.description}</p>
-        <div className="cajaCount">
-          <button className="btnCount">-</button>
+    <div className="content-info urban-detail">
+      <img src={productoImage()} alt={product.name} className="image-info" />
+      <div className="info-product">
+        <h2 className="title-info">{product.name}</h2>
+        <p className="description-info">{product.description}</p>
+        <div className="caja-count">
+          <button className="btn-count">-</button>
           <input type="number" defaultValue={1} className="count" />
-          <button className="btnCount">+</button>
+          <button className="btn-count">+</button>
         </div>
-        <button>Add Car</button>
+        <button className="add-to-cart">Add to Cart</button>
       </div>
     </div>
   )
