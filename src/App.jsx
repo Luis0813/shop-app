@@ -6,11 +6,14 @@ import { Home } from "./pages/Home";
 import { Carrito } from "./pages/Carrito";
 import { Perfil } from "./pages/Perfil";
 import { SingIn } from "./pages/SingIn";
-import { CardSelect } from "./pages/Single";
+import { Single } from "./pages/Single";
+import { Orden } from './pages/Orden';
+import { Modal } from './pages/Modal';
 import { Admin } from './pages/Admin';
-import './styles/App.css'
 import { getToken } from './libs/AuthHelpers';
 import ApiService from './libs/ApiService';
+import './styles/App.css'
+import { AdminCreated } from './pages/AdminCreated';
 
 
 const AppContent = () => {
@@ -38,16 +41,19 @@ const AppContent = () => {
 
   return (
     <>
-      {location.pathname !== '/admin' && <Header setsearchValue={setsearchValue} />}
+      {(location.pathname !== '/admin' && location.pathname !== '/adminCreated') && <Header setsearchValue={setsearchValue} />}
       <Routes>
+        <Route path="/product/:id" element={<Single user={user} />} />
         <Route path="/" element={<Home searchValue={searchValue} />} />
-        <Route path="/product/:id" element={<CardSelect />} />
-        <Route path="/singIn" element={<SingIn setuser={setuser}/>} />
-        <Route path="/carrito" element={<Carrito />} />
+        <Route path="/singIn" element={<SingIn setuser={setuser} />} />
+        <Route path="/carrito" element={<Carrito user={user} />} />
         <Route path="/perfil" element={<Perfil user={user} />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/adminCreated" element={<AdminCreated />} />
+        <Route path="/hacer_orden" element={<Orden />} />
+        <Route path="/modal/:id" element={<Modal />} />
       </Routes>
-      {location.pathname !== '/admin' && <Footer />}
+      {(location.pathname !== '/admin' && location.pathname !== '/adminCreated') && <Footer />}
     </>
   );
 };

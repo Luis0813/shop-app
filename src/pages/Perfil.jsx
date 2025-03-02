@@ -1,9 +1,15 @@
+import { useNavigate } from "react-router-dom";
 
 export const Perfil = ({user}) => {
+ const navigate = useNavigate()
+ const cambiarRuta = (ruta) => {
+   navigate(ruta)
+ }
   if (!user) {
     return (
       <div className="profileContainer">
         <p>No se encontró usuario. Por favor, regístrate.</p>
+        <button className='singInBtn' onClick={()=>cambiarRuta('/singIn')}>singIn</button>
       </div>
     );
   }

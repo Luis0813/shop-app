@@ -1,23 +1,25 @@
 import { useState } from "react";
 import ApiService from "../libs/ApiService"
 import {  setToken } from "../libs/AuthHelpers";
-
+import { useNavigate } from "react-router-dom";
 
 export const SingIn = ({setuser}) => {
- 
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
- 
+  const navigate = useNavigate()
+  const cambiarRuta = (ruta) => {
+    navigate(ruta)
+  }
   const handleLogin = async (e) => {
     e.preventDefault()
-
     try {
       const { data } = await ApiService.post("/session", formData);
       setuser(data)
       if (data.access) {
         setToken(data.access)
+        return cambiarRuta('/')
       } else {
         console.error('Token no encontrado en la respuesta');
       }

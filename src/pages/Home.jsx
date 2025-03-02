@@ -1,27 +1,34 @@
 import { useEffect, useState } from 'react';
 import { Card } from '../components/card';
 import ApiService from '../libs/ApiService';
-export const Home = () => {
-  const [products, setproducts] = useState([])
-
+import { Sidebar } from '../components/layout/Sidebar';
+export const Home = ({ searchValue }) => {
+  const [products, setproducts] = useState([]);
+  const [filter, setFilter] = useState('');
   useEffect(() => {
-    listProduct()
-  }, [])
+    listProduct();
+  }, [searchValue, filter]);
+
   const listProduct = async () => {
     try {
-      const response = await ApiService.get("/product")
-      setproducts(response.data)      
+      const { data } = await ApiService.get(
+        `/product?search=${searchValue}&filter=${filter}`
+      );
+      setproducts(data);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <>
-      <div key={Date.now()} className='contentCard'>
-        {products.map((producto) => (
-          <Card key={producto.id} producto={producto} />
-        ))}
+      <div className='bodySidebar'>
+        <Sidebar setFilter={setFilter} />
+        <div key={Date.now()} className='contentCard'>
+          {products.map((producto) => (
+            <Card key={producto.id} producto={producto} />
+          ))}
+        </div>
       </div>
     </>
   );
